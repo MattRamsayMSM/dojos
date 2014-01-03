@@ -18,6 +18,10 @@ Library.prototype.addBook = function(title, author) {
 Library.prototype.borrowBookWithTitle = function(title) {
     for (var i=0; i<this.books.length; i++) {
         if (this.books[i].title === title) {
+            if (this.books[i].onLoan) {
+                throw new Error('book is out on loan');
+            }
+
             this.books[i].onLoan = true;
         }
     }
