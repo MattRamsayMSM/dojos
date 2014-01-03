@@ -1,0 +1,94 @@
+body {
+    font-size: 16px;
+}
+
+.exerciseContent {
+    display: none;
+}
+
+table tr:nth-child(odd) {
+    background-color: yellow;
+}
+
+table tr td:last-of-type {
+    border-top: 1px solid black;
+}
+
+table tr td:empty {
+    background-color: red;
+}
+
+#one:target {
+    background-color: red;
+}
+
+#two:target {
+    background-color: yellow;
+}
+
+.kiteFont {
+    font-family: 'Kite One', sans-serif;
+}
+
+.redShadow {
+    text-shadow: 2px 2px 4px red;
+}
+
+.greenShadow {
+    text-shadow: 4px 4px 2px green;
+}
+
+.blueShadow {
+    text-shadow: 6px 6px 10px blue, -4px -4px 2px green;;
+}
+
+div.box {
+    border-radius: 5px;
+    margin: 10px 10px 10px 10px;
+    height: 50px;
+    width: 50px;
+}
+
+div.box.red {
+    background-color: red;
+}
+
+div.box.green {
+    background-color: green;
+}
+
+div.box.blue {
+    background-color: blue;
+}
+
+.background-multiple {
+    background-color: pink;
+    background-image: url(http://placekitten.com/400/200), url(http://placekitten.com/200/100), url(http://placekitten.com/200/200);
+    background-position: left top, 100% 50%, 50% 20%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 200px;
+
+}
+
+.background-contain {
+    background-color: yellow;
+    background-image: url(http://placekitten.com/400/200);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-top: 10px;
+    width: 100%;
+    height: 300px;
+}
+
+.banner {
+    background-color: mediumpurple;
+    width: 100%;
+    padding: 40px;
+}
+
+.content div {
+    display: inline-block;
+    padding: 20px;
+    width: 30%;
+}
