@@ -11,23 +11,25 @@ import org.junit.Test;
  */
 public class GameTest {
 
+    private Game game;
+
     @Test
     public void gameShouldHave10Frames() {
         whenIHaveAGame();
-        itShouldHave10Frames();
+        thenItShouldHave10Frames();
     }
 
     @Test
     public void aNewGameShouldHaveAScoreOfZero() {
         whenIHaveAGame();
-        iShouldHaveAScoreOf(0);
+        thenIShouldHaveAScoreOf(0);
     }
 
     @Test
     public void gameScoreShouldBe10WhenIDoOneStrike() {
         whenIHaveAGame();
         andIRollWithPinsKnocked(10);
-        iShouldHaveAScoreOf(10);
+        thenIShouldHaveAScoreOf(10);
     }
 
     @Test
@@ -35,7 +37,7 @@ public class GameTest {
         whenIHaveAGame();
         andIRollWithPinsKnocked(4);
         andIRollWithPinsKnocked(5);
-        iShouldHaveAScoreOf(9);
+        thenIShouldHaveAScoreOf(9);
     }
 
     @Test
@@ -45,24 +47,26 @@ public class GameTest {
         andIRollWithPinsKnocked(5);
         andIRollWithPinsKnocked(3);
         andIRollWithPinsKnocked(2);
-        iShouldBeOnFrame(3);
+        thenIShouldBeOnFrame(3);
     }
-
-    private Game game;
 
     private void whenIHaveAGame() {
         game = new Game();
     }
 
-    private void itShouldHave10Frames() {
+    private void thenItShouldHave10Frames() {
         Assert.assertEquals(10, game.getNumberOfFrames());
     }
 
-    private void iShouldHaveAScoreOf(int score) {
+    private void thenIShouldHaveAScoreOf(int score) {
         Assert.assertEquals(score, game.getScore());
     }
 
     private void andIRollWithPinsKnocked(int pins) {
         game.roll(pins);
+    }
+
+    private void thenIShouldBeOnFrame(int frameNo) {
+        Assert.fail(); // TEMPORARY!! Done to make the test fail. Remove and replace with something appropriate
     }
 }
