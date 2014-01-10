@@ -50,6 +50,31 @@ public class GameTest {
         thenIShouldBeOnFrame(3);
     }
 
+    @Test
+    public void aStrikeShouldCompleteAFrame() {
+        whenIHaveAGame();
+        andIRollWithPinsKnocked(10);
+        thenIShouldBeOnFrame(2);
+    }
+
+    @Test
+    public void aSpareShouldEqual10PlusScoreFromNextRoll() {
+        whenIHaveAGame();
+        andIRollWithPinsKnocked(6);
+        andIRollWithPinsKnocked(4);
+        andIRollWithPinsKnocked(7);
+        thenIShouldHaveAScoreOf(24);
+    }
+
+    @Test
+    public void aStrikeShouldEqual10PlusScoreFromNext2Rolls() {
+        whenIHaveAGame();
+        andIRollWithPinsKnocked(10);
+        andIRollWithPinsKnocked(3);
+        andIRollWithPinsKnocked(4);
+        thenIShouldHaveAScoreOf(24);
+    }
+
     private void whenIHaveAGame() {
         game = new Game();
     }
@@ -67,6 +92,6 @@ public class GameTest {
     }
 
     private void thenIShouldBeOnFrame(int frameNo) {
-        Assert.fail(); // TEMPORARY!! Done to make the test fail. Remove and replace with something appropriate
+        Assert.assertEquals(frameNo, game.getFrameNo()); // TEMPORARY!! Done to make the test fail. Remove and replace with something appropriate
     }
 }
