@@ -75,12 +75,29 @@ public class GameTest {
         thenIShouldHaveAScoreOf(24);
     }
 
+    @Test
+    public void perfectGameHasScoreOf300() {
+        whenIHaveAGame();
+        andIHaveAPerfectGame();
+        thenIShouldHaveAScoreOf(300);
+    }
+
+    @Test
+    public void finalFrameCanHave3RollsIfSpareInFinalFrame() {
+        whenIHaveAGame();
+        andIGetToFrame(10);
+    }
+
     private void whenIHaveAGame() {
         game = new Game();
     }
 
     private void thenItShouldHave10Frames() {
         Assert.assertEquals(10, game.getNumberOfFrames());
+    }
+
+    private void thenIShouldBeOnFrame(int frameNo) {
+        Assert.assertEquals(frameNo, game.getFrameNo());
     }
 
     private void thenIShouldHaveAScoreOf(int score) {
@@ -91,7 +108,16 @@ public class GameTest {
         game.roll(pins);
     }
 
-    private void thenIShouldBeOnFrame(int frameNo) {
-        Assert.assertEquals(frameNo, game.getFrameNo()); // TEMPORARY!! Done to make the test fail. Remove and replace with something appropriate
+    private void andIGetToFrame(int frameNo) {
+        for(int i=0; i < frameNo - 1; i++) {
+            andIRollWithPinsKnocked(5);
+            andIRollWithPinsKnocked(5);
+        }
+    }
+
+    private void andIHaveAPerfectGame() {
+        for(int i=0; i < 12; i++) {
+            andIRollWithPinsKnocked(10);
+        }
     }
 }

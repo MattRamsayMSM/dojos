@@ -5,18 +5,16 @@ package com.moneysupermarket.bowling.model;
  */
 public class Frame {
 
-    private int numberOfPins;
     private int roll;
     private int[] scores;
 
     public Frame() {
-        numberOfPins = 10;
-        scores = new int[3];
-        roll = 0;
+        this.scores = new int[3];
+        this.roll = 0;
     }
 
-    public void roll(int numberOfPins) {
-        scores[roll] = numberOfPins;
+    public void roll(int pins) {
+        scores[roll] = pins;
         roll++;
     }
 
@@ -26,5 +24,13 @@ public class Frame {
 
     public int getScoreForRoll(int roll) {
         return scores[roll];
+    }
+
+    public boolean isStrike() {
+        return scores[0] == 10;
+    }
+
+    public boolean isSpare() {
+        return isStrike() ? false : scores[0] + scores[1] == 10;
     }
 }

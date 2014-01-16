@@ -1,14 +1,11 @@
 package com.moneysupermarket.bowling.model;
 
 public class Game {
-
-    private int score;
-    private int currentFrame;
+    private int currentFrameIndex;
     private Frame[] frames;
 
     public Game() {
-        score = 0;
-        currentFrame = 0;
+        currentFrameIndex = 0;
         frames = new Frame[10];
 
         for(int i=0; i < frames.length; i++) {
@@ -21,42 +18,52 @@ public class Game {
     }
 
     public int getScore() {
+        int score = 0;
+        for (int i = 0; i < 10; i++) {
+            score += getFrameScore(i);
+        }
         return score;
     }
 
+    public int getFrameScore(int frameIndex) {
+        Frame frame = getFrame(frameIndex);
+        int frameScore = frame.getScoreForRoll(0) + frame.getScoreForRoll(1) + frame.getScoreForRoll(2);
+        if (frameIndex < 9) {
+            if (frame.isSpare() || frame.isStrike()) {
+                Frame nextFrame = getFrame(frameIndex + 1);
+                frameScore += nextFrame.getScoreForRoll(0);
+                if (frame.isStrike()) {
+                    if (frameIndex + 1 < 9 && nextFrame.isStrike()) {
+                        nextFrame = getFrame(frameIndex + 2);
+                        frameScore += nextFrame.getScoreForRoll(0);
+                    } else {
+                        frameScore += nextFrame.getScoreForRoll(1);
+                    }
+                }
+            }
+        }
+        return frameScore;
+    }
+
     public void roll(int pins) {
-        score += pins;
-        frames[currentFrame].roll(pins);
+        getCurrentFrame().roll(pins);
 
-        addSpareBonus(pins);
-        addStrikeBonus(pins);
-
-        if (pins == 10 && frames[currentFrame].getRoll() == 1 || frames[currentFrame].getRoll() == 2) {
-            currentFrame++;
+        if (currentFrameIndex < 9) {
+            if (getCurrentFrame().isStrike() || getCurrentFrame().getRoll() == 2) {
+                currentFrameIndex++;
+            }
         }
     }
 
     public int getFrameNo() {
-        return currentFrame + 1;
+        return currentFrameIndex + 1;
     }
 
-    private void addSpareBonus(int pins) {
-        if (currentFrame > 0) {
-            Frame prevFrame = frames[currentFrame - 1];
-            if (prevFrame.getScoreForRoll(0) < 10 && prevFrame.getScoreForRoll(0) + prevFrame.getScoreForRoll(1) == 10) {
-                score += pins;
-            }
-        }
+    private Frame getCurrentFrame() {
+        return frames[currentFrameIndex];
     }
 
-    private void addStrikeBonus(int pins) {
-        if (currentFrame > 0) {
-            Frame prevFrame = frames[currentFrame - 1];
-            if (prevFrame.getScoreForRoll(0) == 10) {
-                score += pins;
-            }
-        }
+    private Frame getFrame(int frameIndex) {
+        return frames[frameIndex];
     }
-
-
 }
