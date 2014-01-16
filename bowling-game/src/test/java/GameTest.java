@@ -41,7 +41,7 @@ public class GameTest {
     }
 
     @Test
-    public void shouldBeOnFrame3After4Rolls() {
+    public void shouldBeOnFrame3After4RollsWithNoStrikes() {
         whenIHaveAGame();
         andIRollWithPinsKnocked(4);
         andIRollWithPinsKnocked(5);
@@ -77,13 +77,6 @@ public class GameTest {
     }
 
     @Test
-    public void perfectGameHasScoreOf300() {
-        whenIHaveAGame();
-        andIHaveAPerfectGame();
-        thenIShouldHaveAScoreOf(300);
-    }
-
-    @Test
     public void finalFrameCanHave3RollsIfSpareInFinalFrame() {
         whenIHaveAGame();
         andIGetToFrame(10);
@@ -108,13 +101,10 @@ public class GameTest {
     }
 
     @Test
-    public void finalFrameS3RollsIfSpareInFinalFrame() {
+    public void perfectGameHasScoreOf300() {
         whenIHaveAGame();
-        andIGetToFrame(10);
-
-        andIRollWithPinsKnocked(6);
-        andIRollWithPinsKnocked(4);
-        andIRollWithPinsKnocked(3);
+        andIHaveAPerfectGame();
+        thenIShouldHaveAScoreOf(300);
     }
 
 
