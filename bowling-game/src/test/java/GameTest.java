@@ -63,7 +63,8 @@ public class GameTest {
         andIRollWithPinsKnocked(6);
         andIRollWithPinsKnocked(4);
         andIRollWithPinsKnocked(7);
-        thenIShouldHaveAScoreOf(24);
+        andIRollWithPinsKnocked(6);
+        thenIShouldHaveAScoreOf(30);
     }
 
     @Test
@@ -86,7 +87,36 @@ public class GameTest {
     public void finalFrameCanHave3RollsIfSpareInFinalFrame() {
         whenIHaveAGame();
         andIGetToFrame(10);
+
+        andIRollWithPinsKnocked(6);
+        andIRollWithPinsKnocked(4);
+        andIRollWithPinsKnocked(3);
+
+        thenTheScoreOfTheFrameShouldBe(10, 13);
     }
+
+    @Test
+    public void finalFrameCanHave3RollsIfStrikeInFinalFrame() {
+        whenIHaveAGame();
+        andIGetToFrame(10);
+
+        andIRollWithPinsKnocked(10);
+        andIRollWithPinsKnocked(10);
+        andIRollWithPinsKnocked(10);
+
+        thenTheScoreOfTheFrameShouldBe(10, 30);
+    }
+
+    @Test
+    public void finalFrameS3RollsIfSpareInFinalFrame() {
+        whenIHaveAGame();
+        andIGetToFrame(10);
+
+        andIRollWithPinsKnocked(6);
+        andIRollWithPinsKnocked(4);
+        andIRollWithPinsKnocked(3);
+    }
+
 
     private void whenIHaveAGame() {
         game = new Game();
@@ -102,6 +132,11 @@ public class GameTest {
 
     private void thenIShouldHaveAScoreOf(int score) {
         Assert.assertEquals(score, game.getScore());
+    }
+
+    private void thenTheScoreOfTheFrameShouldBe(int frameNo, int frameScore) {
+        int frameIndex = frameNo - 1;
+        org.junit.Assert.assertEquals(frameScore, game.getFrameScore(frameIndex));
     }
 
     private void andIRollWithPinsKnocked(int pins) {
